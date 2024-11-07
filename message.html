@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Message</title>
+  </head>
+  <body>
+    <h1>Send a Message</h1>
+    <form action="/submit" method="post" id="messageForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required /><br />
+      <label for="message">Message:</label>
+      <input type="text" id="message" name="message" required /><br />
+      <button type="submit">Submit</button>
+    </form>
+    <script>
+      document.getElementById("messageForm").onsubmit = async function (event) {
+        event.preventDefault();
+        const formData = {
+          username: document.getElementById("username").value,
+          message: document.getElementById("message").value,
+        };
+        await fetch("/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+        alert("Message sent");
+      };
+    </script>
+  </body>
+</html>
